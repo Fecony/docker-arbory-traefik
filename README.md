@@ -54,24 +54,29 @@ Now open `testapp.test` in your browser and you should see your application runn
 
 ## Custom domain (`.dev`, `.test`, etc...)
 
+Possible fix for macOS DNS settings [here](https://superuser.com/questions/680005/in-os-x-how-can-i-prepend-127-0-0-1-to-the-list-of-dns-servers-obtained-through)
+
 ```bash
 # Install dnsmasq
 brew install dnsmasq
 
-# Open `dnsmasq` config file and add new conf-file "conf-file=/Users/your_user_name/.dnsmasq/dnsmasq.conf"
+# MacOS fix
+sudo mkdir /etc/resolver/
+sudo sh -c 'echo nameserver 127.0.0.1 > /etc/resolver/DOMAIN_NAME'
 
+# Open `dnsmasq` config file and add line:
+# "conf-file=/Users/your_user_name/.dnsmasq/dnsmasq.conf"
 nano /usr/local/etc/dnsmasq.conf
 
 # Open /Users/your_user_name/.dnsmasq/dnsmasq.conf file
-
 nano /Users/your_user_name/.dnsmasq/dnsmasq.conf
 
 # add this lines
 #
-# address=/.domain/127.0.0.1
+# address=/domain/127.0.0.1
 # listen-address=127.0.0.1
 #
-# Where ".domain" is domain you want to access your app
+# Where "domain" is domain you want to access your app
 
 # Start dnsmasq
 brew services start dnsmasq
