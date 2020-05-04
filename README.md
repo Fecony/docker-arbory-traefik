@@ -45,7 +45,7 @@ docker-compose down
 
 Now open `testapp.test` in your browser and you should see your application running!
 
-- **NOTICE** - If it is not working for you, look at [Custom domain](#custom-domain) section to setup `dnsmasq`
+- **NOTICE** - If it is not working for you, look at [Custom domain](#custom-domain-dev-test-etc) section to setup `dnsmasq`
 
 ## Commands
 
