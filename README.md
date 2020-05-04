@@ -33,17 +33,48 @@ nano .env
 
 Add `init.sql` file to `data` folder. Which will create project database. Or import sql file later
 
-## Run
+## Run and Stop Containers
 
 ```bash
+# To start containers
 docker-compose up -d
+
+# To stop them
+docker-compose down
 ```
+
+Now open `testapp.test` in your browser and you should see your application running!
+
+- **NOTICE** - If it is not working for you, look at [Custom domain](#custom-domain) section to setup `dnsmasq`
 
 ## Commands
 
 - `docker-compose exec app bash` - to run bash in app container.
 - `docker-compose exec mysql bash` - to access mysql. Then you can import/export database.
 
-## TODO
+## Custom domain (`.dev`, `.test`, etc...)
 
-- Need to understand traefik and dnsmasq more, to access multiple projects on different domains.
+```bash
+# Install dnsmasq
+brew install dnsmasq
+
+# Open `dnsmasq` config file and add new conf-file "conf-file=/Users/your_user_name/.dnsmasq/dnsmasq.conf"
+
+nano /usr/local/etc/dnsmasq.conf
+
+# Open /Users/your_user_name/.dnsmasq/dnsmasq.conf file
+
+nano /Users/your_user_name/.dnsmasq/dnsmasq.conf
+
+# add this lines
+#
+# address=/.domain/127.0.0.1
+# listen-address=127.0.0.1
+#
+# Where ".domain" is domain you want to access your app
+
+# Start dnsmasq
+brew services start dnsmasq
+```
+
+Now you can access `testapp.domain` to access your project and start coding!
